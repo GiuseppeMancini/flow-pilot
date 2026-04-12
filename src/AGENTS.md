@@ -11,27 +11,6 @@
 - Remove redundant or wrong comments; do not restate obvious names.
 - Match the file’s language and comment style.
 
-## Verified project ops
-
-This repository is **agent/skill configuration and guidelines** only. There is no application build, package manager, automated test suite, or CI at repo root unless you add them later. No env vars are required to edit these files.
-
-## Agent documentation layout
-
-Repo root: **`AGENTS.md`**. Under each declared **convention root**, nested **`AGENTS.md`** holds conventions for that tree.
-
-- **Code convention roots** — repo-relative paths (forward slashes, no trailing slash) for **source** conventions. If a listed directory **exists**, `<path>/AGENTS.md` must exist (stub + sections).
-- **Test convention roots** — same for **test** conventions.
-
-**Rules:** Only paths under **This repository** count. Do not create a directory only to add `AGENTS.md`. Empty lists are valid.
-
-### This repository
-
-List paths as Markdown bullets (one path per line). If none, keep **no paths declared** and omit bullets.
-
-**Code convention roots:** no paths declared (add bullets when this repo has a dedicated source tree to document).
-
-**Test convention roots:** no paths declared (add bullets when this repo has a dedicated test tree to document).
-
 ## Agent docs to keep current
 
 | File | Keep updated with |

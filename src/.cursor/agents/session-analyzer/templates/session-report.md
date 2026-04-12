@@ -30,8 +30,8 @@
 ### Root AGENTS.md proposals
 <!-- section/topic: proposed text (commands, workflow, env, etc.) -->
 
-### Nested `AGENTS.md` proposals (convention roots)
-<!-- path: proposed text — code or test conventions per root -->
+### Nested `AGENTS.md` proposals
+<!-- path: proposed text — conventions for that directory -->
 
 ### Searches that better docs would have prevented
 <!-- search/query: what doc or comment would have answered it -->

@@ -25,7 +25,7 @@ Review how instructions were used (or not) during the session:
 
 ## 2. Project-Specific Instructions
 
-Same analysis as above, but focused on project-level `AGENTS.md`, nested `AGENTS.md` under **Agent documentation layout** convention roots, and skills (if they exist). Look for:
+Same analysis as above, but focused on project-level `AGENTS.md`, any nested `AGENTS.md` files present in the repo, and skills (if they exist). Look for:
 - Project patterns the agent had to discover through exploration that should be documented.
 - Project-specific conventions that were violated because they weren't documented.
 
@@ -33,7 +33,7 @@ Same analysis as above, but focused on project-level `AGENTS.md`, nested `AGENTS
 
 Analyze exploration and searches during the session. For each costly or repeated search:
 - Could it have been avoided with a **comment** in the right file?
-- Could root **`AGENTS.md`** or a nested **`<convention-root>/AGENTS.md`** have held the answer?
+- Could root **`AGENTS.md`** or a nested **`AGENTS.md`** in a relevant directory have held the answer?
 
 Produce **concrete proposed text** (snippets) for comments or those docs — **do not apply** them automatically (same policy as skill/AGENTS changes: user decides).
 
