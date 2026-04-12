@@ -1,0 +1,8 @@
+
+Code Quality
+
+Write clean, readable, maintainable code. Follow project conventions. Apply SOLID, DRY, YAGNI. Remove dead code, simplify complex logic, use meaningful names. If you touch a file and see improvement opportunities relevant to the current task, address them.
+
+
+
+DON'T "Never leave the codebase worse than you found it
