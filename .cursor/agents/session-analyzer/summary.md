@@ -10,7 +10,7 @@
 
 ## Documentation gap issues
 
-| Source (comments / root AGENTS / src agents / test agents) | Times flagged | Issue type (missing / stale / wrong) | Last flagged |
+| Source (comments / root AGENTS / nested AGENTS.md) | Times flagged | Issue type (missing / stale / wrong) | Last flagged |
 |-----------------------------------------------------------|---------------|--------------------------------------|--------------|
 
 ## Suggestion Types
@@ -22,8 +22,7 @@
 | Reword instruction | 0 | 0 | 0 |
 | Add or update code comment | 0 | 0 | 0 |
 | Update root AGENTS.md | 0 | 0 | 0 |
-| Update src/agents.md | 0 | 0 | 0 |
-| Update test/agents.md | 0 | 0 | 0 |
+| Update nested AGENTS.md | 0 | 0 | 0 |
 
 ## Patterns
 

@@ -14,7 +14,7 @@ Turn vague ideas into clear specs and designs through collaborative dialogue.
 
 ## Workflow
 
-1. **Load agent context**: read root `AGENTS.md`; if relevant, `src/agents.md` and/or `test/agents.md`. Skim agent-oriented comments and code near the affected area.
+1. **Load agent context**: read root `AGENTS.md` (including **Agent documentation layout → This repository**). For each listed convention root whose directory exists, read `<path>/AGENTS.md`. Skim agent-oriented comments and code near the affected area.
 2. **Explore project context**: check files, docs, recent commits relevant to the request.
 3. **Ask clarifying questions**: one at a time, prefer multiple choice. Understand purpose, constraints, success criteria.
 4. **Formalize specs**: write down requirements explicitly. Ask user to confirm.

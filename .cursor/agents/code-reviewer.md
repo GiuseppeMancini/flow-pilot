@@ -11,7 +11,7 @@ You are a senior code reviewer. You receive an implementation and its original p
 - Verify all planned functionality is implemented.
 
 ### Code Quality
-- Patterns and **project conventions** (see root `AGENTS.md`, and `src/agents.md` / `test/agents.md` when present).
+- Patterns and **project conventions** (see root `AGENTS.md`, including **Agent documentation layout**, and each existing `<convention-root>/AGENTS.md`).
 - **DRY and YAGNI**: unnecessary duplication, speculative generality, and scope creep in the change.
 - **Dead code** and **avoidable complexity** (deep nesting, redundant abstractions).
 - **Clarity over brevity**: prefer explicit, readable flow over dense or clever one-liners; flag **nested ternaries** and similar patterns when they hurt readability.

@@ -11,32 +11,63 @@
 - Remove redundant or wrong comments; do not restate obvious names.
 - Match the file’s language and comment style.
 
+## Verified project ops
+
+This repository is **agent/skill configuration and guidelines** only. There is no application build, package manager, automated test suite, or CI at repo root unless you add them later. No env vars are required to edit these files.
+
+## Agent documentation layout
+
+Repo root: **`AGENTS.md`**. Under each declared **convention root**, nested **`AGENTS.md`** holds conventions for that tree.
+
+- **Code convention roots** — repo-relative paths (forward slashes, no trailing slash) for **source** conventions. If a listed directory **exists**, `<path>/AGENTS.md` must exist (stub + sections).
+- **Test convention roots** — same for **test** conventions.
+
+**Rules:** Only paths under **This repository** count. Do not create a directory only to add `AGENTS.md`. Empty lists are valid.
+
+### This repository
+
+List paths as Markdown bullets (one path per line). If none, keep **no paths declared** and omit bullets.
+
+**Code convention roots:** no paths declared (add bullets when this repo has a dedicated source tree to document).
+
+**Test convention roots:** no paths declared (add bullets when this repo has a dedicated test tree to document).
+
 ## Agent docs to keep current
 
 | File | Keep updated with |
 |------|-------------------|
-| Root `AGENTS.md` | Verified **commands**: build, run, lint/format, test, debug, env vars, entrypoints, CI when relevant. Update when tooling or scripts change. |
-| `src/agents.md` | Project **code** conventions (layout, naming, patterns, errors, logging, etc.). **Create** this file when `src/` exists and the file is missing (minimal stub + sections to fill). |
-| `test/agents.md` | **Test** conventions (layout, fixtures, mocks, test data, what to test / skip). **Create** when `test/` exists and the file is missing (minimal stub + sections to fill). |
+| Root `AGENTS.md` | Verified **commands**: build, run, lint/format, test, debug, env vars, entrypoints, CI when relevant. Update when tooling or scripts change. Keep **Agent documentation layout → This repository** accurate when code/test trees appear or move. |
+| `<convention-root>/AGENTS.md` | **Code roots**: project code conventions. **Test roots**: test conventions. **Create** when the directory exists and the file is missing (minimal stub + sections to fill). Paths come from **Agent documentation layout** above. |
 
-Do not create `src/` or `test/` only to add these files.
+### Agent docs prerequisites (blocking — all work)
+
+Before **any work** on the repo, these checks must pass:
+
+| Prerequisite | Pass when |
+|--------------|-----------|
+| Root `AGENTS.md` | **Verified project ops** (section above) has real content (not empty placeholders): build/run/test/lint or honest **N/A** for this repo type, entrypoints, env vars, CI when relevant. If that section is missing or placeholder-only, **stop**. |
+| Nested `AGENTS.md` | For **each path** listed under **Agent documentation layout → This repository** (code and test roots), **if** that directory **exists**, file `<path>/AGENTS.md` **must exist** (minimal stub + sections per table above). If missing, **stop**. |
+
+**Behavior:** If any check fails, **STOP**. This applies in **every mode and workflow** (including Plan Mode and Bugfix) — the first useful output is this request, not code changes, fixes, or a draft plan. Only after fixes or a clear user waiver may you continue.
 
 ## Workflow: Plan Mode
 
-1. **Load context**: read root `AGENTS.md` (commands + this workflow). If they exist and apply, read `src/agents.md` and/or `test/agents.md`. Then explore the repo in a targeted way (neighbors, imports, call sites), using agent-oriented comments as the first guide.
-2. **Evaluate scope**: does the request need the `explore` skill? (vague, ambiguous, multiple valid solutions) If yes, activate it first.
-3. **Formalize specs**: write explicit requirements and define test scenarios for each requirement. Each scenario maps to a test. If a scenario cannot be automated, define exact manual steps for the user. Evaluate which skills to activate for the implementation. Ask user to approve before proceeding.
-4. **Create the plan**. The plan must contain these sections:
+1. **Load context**: read root `AGENTS.md` (communication, comments policy, **Verified project ops**, **Agent documentation layout**, workflows). For each convention root listed for **this repository** whose directory exists, read `<path>/AGENTS.md`. Then explore the repo in a targeted way (neighbors, imports, call sites), using agent-oriented comments as the first guide.
+2. **Agent docs prerequisites**: run the **Agent docs prerequisites (blocking — all work)** checks. If any fail → ask the user (or explicit waiver). **Do not** proceed to step 3 until resolved.
+3. **Evaluate scope**: does the request need the `explore` skill? (vague, ambiguous, multiple valid solutions) If yes, activate it first.
+4. **Formalize specs**: write explicit requirements and define test scenarios for each requirement. Each scenario maps to a test. If a scenario cannot be automated, define exact manual steps for the user. Evaluate which skills to activate for the implementation. Ask user to approve before proceeding.
+5. **Create the plan**. The plan must contain these sections:
    - **Specs**: the approved requirements.
    - **Skills**: skills to activate for the implementation.
    - **Test scenarios**: the approved test scenarios.
    - **Tasks**: list of self-contained tasks. Each task must follow this structure: implement → write tests → run tests. Apply YAGNI, DRY, TDD. Refactor touched areas when beneficial.
    - **DoD**: keep iterating until all of the following are satisfied: all tasks complete, lint clean (no format), full test suite green, implementation approved by `code-reviewer` (max 3 cycles).
-5. **Plan review**: launch a `plan-reviewer` subagent. Max 3 review cycles.
-6. **Present plan** to user only after reviewer approval.
+6. **Plan review (mandatory)**: launch `plan-reviewer` via the Task tool. **Plan Mode is not an exception** — there is no shortcut. **Max 3 review cycles**; iterate the plan until approved or cycles exhausted per subagent rules.
+7. **Present plan** to user only after reviewer approval.
 
 ## Workflow: Bugfix
 
+0. **Agent docs prerequisites**: same **Agent docs prerequisites (blocking — all work)** as above. If any fail → ask the user (or explicit waiver). **Do not** diagnose or change code until resolved.
 1. **Diagnose**: find the root cause before attempting any fix.
    - Read error logs and stack traces.
    - Check recent changes (git log, git diff).
@@ -54,12 +85,14 @@ Launch subagents via Task tool. Read the agent file and include its instructions
 
 | Agent | File | When |
 |-------|------|------|
-| `plan-reviewer` | `.cursor/agents/plan-reviewer.md` | After creating a plan (step 5 of Plan Mode). Max 3 cycles. |
+| `plan-reviewer` | `.cursor/agents/plan-reviewer.md` | **Required** after drafting a plan (Plan Mode step 6). Do not present a plan to the user without this review. Max 3 cycles. |
 | `code-reviewer` | `.cursor/agents/code-reviewer.md` | Included as final task in every plan. Max 3 cycles. |
 
 ## DON'Ts
 - Never decide on ambiguous requirements without asking the user.
-- Never skip plan-reviewer or code-reviewer.
+- Never skip **Agent docs prerequisites** for substantive work — not only Plan Mode; implementation and bugfix included unless the user explicitly waives.
+- Never skip `plan-reviewer` or `code-reviewer`.
+- Never skip `plan-reviewer` because the session is in Plan Mode, because a plan was auto-generated, or for expediency — **no exception**.
 - Never present a plan before the reviewer approves it.
 - Never implement features not in the specs.
 
@@ -67,6 +100,6 @@ Launch subagents via Task tool. Read the agent file and include its instructions
 
 | Phase | Done when |
 |-------|-----------|
-| Planning | Requirements user-approved, test scenarios confirmed, plan approved by plan-reviewer, plan approved by user |
-| Implementation | All tasks done, lint clean, full test suite green, code approved by code-reviewer, and where applicable: agent-oriented comments and the relevant `AGENTS.md` / `src/agents.md` / `test/agents.md` updated for the change |
-| Bugfix | Root cause identified, reproducing test exists (or repro steps documented), fix applied, all tests green |
+| Planning | **Agent docs prerequisites** satisfied or **explicitly waived** by the user; requirements user-approved; test scenarios confirmed; plan approved by plan-reviewer; plan approved by user |
+| Implementation | **Agent docs prerequisites** satisfied or waived before work began; all tasks done; lint clean; full test suite green; code approved by code-reviewer; and where applicable: agent-oriented comments and the relevant root `AGENTS.md` / nested `<convention-root>/agents.md` files updated for the change |
+| Bugfix | **Agent docs prerequisites** satisfied or waived before work began; root cause identified; reproducing test exists (or repro steps documented); fix applied; all tests green |

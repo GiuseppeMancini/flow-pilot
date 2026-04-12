@@ -25,7 +25,7 @@ Review how instructions were used (or not) during the session:
 
 ## 2. Project-Specific Instructions
 
-Same analysis as above, but focused on project-level `AGENTS.md`, `src/agents.md`, `test/agents.md`, and skills (if they exist). Look for:
+Same analysis as above, but focused on project-level `AGENTS.md`, nested `AGENTS.md` under **Agent documentation layout** convention roots, and skills (if they exist). Look for:
 - Project patterns the agent had to discover through exploration that should be documented.
 - Project-specific conventions that were violated because they weren't documented.
 
@@ -33,7 +33,7 @@ Same analysis as above, but focused on project-level `AGENTS.md`, `src/agents.md
 
 Analyze exploration and searches during the session. For each costly or repeated search:
 - Could it have been avoided with a **comment** in the right file?
-- Could root **`AGENTS.md`**, **`src/agents.md`**, or **`test/agents.md`** have held the answer?
+- Could root **`AGENTS.md`** or a nested **`<convention-root>/AGENTS.md`** have held the answer?
 
 Produce **concrete proposed text** (snippets) for comments or those docs — **do not apply** them automatically (same policy as skill/AGENTS changes: user decides).
 
@@ -50,7 +50,7 @@ Use the template at `.cursor/agents/session-analyzer/templates/session-report.md
 Update `.cursor/agents/session-analyzer/summary.md` using the template at `.cursor/agents/session-analyzer/templates/sessions-summary.md`. Track cumulative counts across sessions:
 
 - How often each skill/AGENTS.md section was flagged as problematic.
-- How often **documentation gaps** were reported (comments vs root `AGENTS.md` vs `src/agents.md` vs `test/agents.md`).
+- How often **documentation gaps** were reported (comments vs root `AGENTS.md` vs nested `AGENTS.md`).
 - How often each suggestion type was made (add instruction, remove instruction, reword, add comment, update agent doc, etc.).
 - How often suggestions were accepted vs rejected by the user (update after user decision).
 
@@ -61,7 +61,7 @@ This summary helps distinguish **real patterns** (flagged many times) from **noi
 Summarize to the user:
 - Concrete suggestions for skill/AGENTS.md improvements (with proposed text).
 - For each suggestion, reference how many times this issue has been flagged (from summary).
-- What was proposed for comments / `src/agents.md` / `test/agents.md` (filenames + proposed snippets).
+- What was proposed for comments / nested `AGENTS.md` (paths + proposed snippets).
 - Session report path.
 
 The user decides which suggestions to apply. Record their decisions in the summary.
