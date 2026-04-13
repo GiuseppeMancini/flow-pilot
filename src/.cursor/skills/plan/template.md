@@ -10,8 +10,9 @@ Copy and fill for the **internal draft** (before `plan-reviewer`). Replace place
 
 ## Skills
 
+- `agent-oriented-comments` — use for adding or updating AI-friendly code comments.
+- `simplify-code` — when tasks include **Simplify / refactor**
 - `skill-name` — why it applies for implementation
-- `simplify-code` — when tasks include **Simplify / refactor** on code (implementers read `.cursor/skills/simplify-code/SKILL.md` at step 4)
 - …
 
 ## Test scenarios

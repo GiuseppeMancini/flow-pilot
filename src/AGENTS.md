@@ -45,7 +45,7 @@ Launch subagents via Task tool. Read the agent file and include its instructions
 | Agent | File | When |
 |-------|------|------|
 | `plan-reviewer` | `plan-reviewer.md` | **Required** after the internal plan draft is complete, **before** any user-visible plan. Do not use CreatePlan or show the plan until this review has run on the full draft. Max 3 cycles. |
-| `code-reviewer` | `code-reviewer.md` | Included as final task in every plan. Max 3 cycles. |
+| `code-reviewer` | `code-reviewer.md` | At least one **final** task on the full implementation; intermediate checkpoint tasks when the `plan` skill warrants them. Max 3 cycles per review. |
 
 ## DON'Ts
 - Never decide on ambiguous requirements without asking the user.
