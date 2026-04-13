@@ -10,7 +10,7 @@ description: >-
 
 Review instructional text (skills, AGENTS.md, subagent prompts) and fix clarity issues.
 
-**Scope**: text quality only. This skill does NOT gather requirements (that's `explore`) or create plans.
+**Scope**: text quality only. This skill does NOT gather requirements or create plans (see **`plan`** skill — explore and planning live there).
 
 ## What to Check
 
@@ -44,5 +44,5 @@ For each issue:
 ## DON'Ts
 - Never rewrite the entire document without being asked. Flag issues, don't overhaul.
 - Never change the intent or scope of instructions — only improve clarity.
-- Never do requirements gathering or design work. That's `explore`.
+- Never do requirements gathering or design work. That's the **`plan`** skill (explore phase).
 - Never add new instructions or features. Only clarify existing ones.

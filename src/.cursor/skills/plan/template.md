@@ -1,6 +1,6 @@
-# Plan draft template
+# Plan template
 
-Copy and fill for the **internal draft** (before `plan-reviewer`). Replace placeholders; remove sections that do not apply.
+Copy and fill when authoring a plan. Replace placeholders; remove subsections that do not apply. Follow this structure in every plan file under `plans/`.
 
 ## Specs
 
@@ -11,32 +11,26 @@ Copy and fill for the **internal draft** (before `plan-reviewer`). Replace place
 ## Skills
 
 - `agent-oriented-comments` — on **every** created or modified source file: add or refresh AI-friendly comments for **touched symbols and closely related context**, not only brand-new code.
-- `simplify-code` — when tasks include **Simplify / refactor**
 - `skill-name` — why it applies for implementation
 - …
 
-## Test scenarios
+## Integration and E2E evaluation
 
-| ID | Requirement | Scenario | Automatable? | Test location or manual steps |
-|----|-------------|----------|--------------|--------------------------------|
-| T1 | … | Given … when … then … | yes | `path/to/test.file` |
-| T2 | … | … | no | Step 1 … Step 2 … |
+Optional **context** for QA or follow-up: note whether **integration** or **e2e** checks are eventually relevant, and what they would cover. This skill’s **Tasks** are **implementation only**—do **not** schedule work here to author or execute automated tests.
 
 ## Tasks
 
-Split work so each task is **small**, **self-contained**, and **verifiable on its own** (junior implementer, no implicit repo context).
+Split work so each task is **small**, **self-contained**, and **implementation-focused** (junior implementer, no implicit repo context).
 
 ### Task 1: [short title — one verifiable slice]
+
+**Why (context):** one or two sentences — product or technical reason this task exists (so someone new to the repo understands the goal).
 
 **Scope / done when:** …
 
 **Execution order (mandatory):**
 
-1. **Write tests** — …
-2. **Write code** — …
-3. **Run tests** — command or scope; must be green before step 4.
-4. **Simplify / refactor** — Read and apply `.cursor/skills/simplify-code/SKILL.md` (behavior-preserving clarity: structure, naming, redundancy). Re-run tests after each meaningful change.
-5. **Run tests again** — if red: fix or targeted rollback → re-run until green (repeat as needed).
+1. **Implement** — Complete the **Per-file instructions** so **Scope / done when** is satisfied. No steps in this plan require writing or running automated tests.
 
 **Per-file instructions (mandatory — list every create / modify / delete):**
 
@@ -59,11 +53,4 @@ Split work so each task is **small**, **self-contained**, and **verifiable on it
 
 ### Task 2: …
 
-(same structure: execution order + **Per-file instructions** for each file)
-
-## DoD
-
-- All tasks above complete.
-- Lint clean (no format).
-- Full test suite green.
-- Implementation approved by `code-reviewer` (max 3 cycles).
+(same structure: **Why**, **Scope / done when**, execution order + **Per-file instructions** for each file)

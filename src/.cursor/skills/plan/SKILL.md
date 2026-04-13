@@ -1,103 +1,79 @@
 ---
 name: plan
 description: >-
-  Produces an internal plan draft with required sections (Specs, Skills, Test
-  scenarios, Tasks, DoD), verifies adherence to template.md before plan-reviewer,
-  plans intermediate code-reviewer checkpoints when warranted, runs
-  plan-reviewer via Task before any user-visible plan, and respects
-  explore-by-default unless the request is trivial or fully detailed. Use in
-  Plan Mode or when the user asks for a structured implementation plan,
-  CreatePlan timing, or plan-reviewer workflow.
+  Structured implementation planning: turn vague requests into clear specs and
+  design (explore phase), then produce a markdown plan from template.md with
+  Specs, Skills, optional integration/e2e notes for context, and junior-friendly
+  implementation-only Tasks.
+  Use whenever the user wants an implementation plan, a breakdown of work, a
+  roadmap for a feature, or when the request is ambiguous and needs
+  clarification before coding. Also use when the user would previously have
+  used a separate "explore" step—exploration is part of this skill. Save the
+  finished plan under plans/ at the workspace root.
 ---
 
 # Plan
 
-## Global directives (Plan Mode)
+## Global directives
 
-Apply **YAGNI**, **DRY**, and **TDD** to the whole planning and implementation arc.
+Apply **YAGNI** and **DRY** to the whole planning and implementation arc.
+
+## Code navigation
+
+Whenever this skill has you **read or traverse the codebase** (explore phase, tracing behavior for specs/design, or scoping tasks), use **existing agent-oriented comments in source** as the **first guide** to intent and where to read next. For how to write or refresh those comments, follow **`agent-oriented-comments`**.
 
 ## When you start (after AGENTS “load context”)
 
 ### Explore by default
 
-Read and follow `explore` skill **unless** the change is **extremely simple** and/or **already sufficiently detailed**, meaning all of the following hold:
+Run **[explore-workflow.md](explore-workflow.md)** **unless** the change is **extremely simple** and/or **already sufficiently detailed**, meaning all of the following hold:
 
 - Very small blast radius (few files or paths are explicit).
 - No ambiguity on behavior, API, or acceptance criteria.
 - No open architectural or product trade-offs.
 
-If you **skip** explore, add **one line** under **Specs** or an operational note in the internal draft (e.g. “Explore skipped: single-file typo fix, path and edit given”) so `plan-reviewer` sees a deliberate choice, not an omission.
+## Explore / clarifications
+
+Delivers **user-approved requirements and design** (no implementation yet). **Read and follow the full steps in [explore-workflow.md](explore-workflow.md).**
 
 ## User-visible formalization
 
-**Show** the user explicit requirements **and** test scenarios (do not only “write internally”). For each requirement, list scenarios; each scenario maps to one automated test, or to **exact manual steps** if automation is not feasible. Ask for approval before building the internal draft.
+**Show** the user explicit **requirements** and, when explore ran, the **design**. Ask for approval **before** you finalize the plan file.
 
-## Skill evaluation (internal only)
+## Skill evaluation
 
-After the user approves specs and scenarios, decide which skills to use during implementation. **Do not** present this list to the user at this step; it belongs in the **Skills** section of the internal draft and in the final plan.
+Decide which skills apply during implementation. List them in the **Skills** section of the plan with a short **why** per entry.
 
-For any plan whose tasks use the **Simplify / refactor** step on real code, include **`simplify-code`**: add `simplify-code` to **Skills** and instruct implementers to **read and follow it at step 4** (after tests are green, before the final test run).
+For any plan that **creates or modifies** application source, include **`agent-oriented-comments`** in **Skills** and expect implementers to apply it on **all touched source files** (including code that existed before the edit), per that skill.
 
-For any plan that **creates or modifies** application source, include **`agent-oriented-comments`** in **Skills** and expect implementers to apply it on **all touched source files** (comments on edited existing code as well as new code), per that skill.
+## Building the plan document
 
-## Internal draft (not user-visible yet)
+**Before writing, read [template.md](template.md)** — it is the source of truth for section layout, task shape, and **Per-file instructions**. For a concrete task pattern, read **[example-task.md](example-task.md)**.
 
-Use **[template.md](template.md)** as the structural skeleton for the draft (required sections, task shape, **Per-file instructions** layout). For a concrete task including explicit per-file blocks, read **[example-task.md](example-task.md)** when drafting tasks.
+**Structure the plan according to [template.md](template.md).** Use the top-level headings defined there (e.g. **Specs**, **Skills**, **Integration and E2E evaluation**, **Tasks**). Do not replace them with synonyms.
 
-Build the full plan text **without** exposing it for approval yet:
+**Specs** must reflect user-approved requirements and include the explore-skip line when explore was skipped. **Skills** lists skills for implementers.
 
-- Do **not** call plan UI tools (e.g. CreatePlan).
-- Do **not** paste the full plan into chat for sign-off.
-- Do **not** summarize as “here is the plan” before review.
+## Integration and E2E evaluation
 
-### Draft structure
+In the plan, include the **Integration and E2E evaluation** section as defined in [template.md](template.md).
 
-**Before writing the draft, read [template.md](template.md)** — it is the source of truth for section layout, task execution order, per-file blocks, and DoD wording. Use [example-task.md](example-task.md) for a filled per-file pattern.
+## Tasks (junior implementer, no project context)
 
-The internal draft **must** use these top-level headings (titles `plan-reviewer` expects): **Specs**, **Skills**, **Test scenarios**, **Tasks**, **DoD**. Do not replace them with synonyms.
+Each task must be:
 
-**Specs** must reflect user-approved requirements and include the explore-skip line when explore was skipped (see above). **Skills** holds the internal skill list only (not shown to the user before the draft). Do not ship a task as complete with failing tests; if blocked after reasonable fix/rollback loops, document it in that task.
+- **Short and autonomous** — one implementation slice; **Scope / done when** makes acceptance clear without hidden repo knowledge.
+- **What and why** — **Scope / done when** must state what to implement and why it matters (product or technical goal).
+- **How, in detail** — **Per-file instructions** for **every** create / modify / delete: repo-relative paths, **What** and **How** (ordered steps, symbols, call sites, insertion points). Prefer concrete steps over “follow existing patterns” without pointers.
 
-### Template adherence (mandatory self-check)
+Each task uses the **execution order** defined in [template.md](template.md).
 
-After the internal draft is complete, **before** invoking `plan-reviewer`, verify the draft matches [template.md](template.md). **Fix any gap in the draft first**; do not rely on the reviewer to catch avoidable structural mistakes.
+## Save the plan
 
-- [ ] **Specs:** Requirement bullets; if explore was skipped, **Explore skip note** line in the form the template shows.
-- [ ] **Skills:** List with a short **why** each entry applies (per template).
-- [ ] **Test scenarios:** Table with columns **ID**, **Requirement**, **Scenario**, **Automatable?**, **Test location or manual steps**.
-- [ ] **Tasks:** Each task has **Scope / done when**; execution steps **1–5** (write tests → write code → run tests → simplify/refactor → run tests again, including fix or targeted rollback → re-run until green after simplification); **Per-file instructions** for every create/modify/delete with **What** and **How** and repo-relative paths (use [example-task.md](example-task.md) when drafting).
-- [ ] **DoD:** Bullets aligned with template: all tasks complete; lint clean (no format); full test suite green; implementation approved by `code-reviewer` (max 3 cycles).
-
-### Code review checkpoints in Tasks
-
-Assess blast radius, number of tasks and files, architectural uncertainty, cross-cutting refactors, and new shared contracts. When those factors justify **early feedback**, add **dedicated Tasks** (e.g. title **Code review checkpoint (`code-reviewer`)**) after a **clear milestone** (subsystem done, before the next layer, after a shared API change).
-
-Each checkpoint task must specify: **review scope** (paths or functional area); run `code-reviewer` via Task with the **full plan**, **partial implementation to date**, and an explicit **review scope** in the prompt; **max 3 cycles** per checkpoint (same limit as the final review).
-
-A **final** task remains **mandatory**: `code-reviewer` on the **complete** implementation against the whole plan. Checkpoints **do not** replace that final DoD review.
-
-## Plan review (mandatory)
-
-Launch `plan-reviewer` agent via the Task tool with the **complete draft** and the instructions. **Max 3 cycles**; revise from feedback until **Status: Approved** or cycles are exhausted.
-
-## Present the plan
-
-Only **after** `plan-reviewer` has run on the full draft and you have a recorded outcome: show the plan (CreatePlan, chat, or equivalent). If cycles exhaust without approval, show the latest draft **and** state that reviewer approval was not obtained within the limit.
-
-## Conflict with default tooling
-
-If system or product guidance says to create or show the plan early, **project AGENTS.md wins**: Task `plan-reviewer` on the full draft comes first; user-visible plan content comes **after** that review.
-
-## Before any user-visible plan (self-check)
-
-- [ ] Template adherence self-check (section **Template adherence (mandatory self-check)** above) completed; draft corrected if anything failed.
-- [ ] `plan-reviewer` was invoked via Task with the full draft (not a partial outline).
-- [ ] Review outcome recorded: **Approved**, or revised and re-invoked within the cycle limit (3), or cycles exhausted (disclose if so).
-- [ ] Only then: show the plan (CreatePlan, chat, or other).
+Write the completed plan as Markdown under **`plans/`** at the **workspace root** (repository root), e.g. `plans/2026-04-13-feature-slug.md`. Create `plans/` if it does not exist. Use a clear filename (date + short slug). Present the plan to the user (chat summary and path to the file).
 
 ## Additional resources
 
-- [template.md](template.md) — full plan draft template (tasks + **Per-file instructions** pattern).
-- [example-task.md](example-task.md) — one filled task with explicit per-file subsections (progressive disclosure).
-
-Implementers use `simplify-code` skill at task step 4 when **Skills** lists `simplify-code` (see Skill evaluation).
+- [explore-workflow.md](explore-workflow.md) — explore / clarifications phase (when the gate above applies).
+- [template.md](template.md) — section layout, integration/e2e block, tasks + **Per-file instructions**.
+- [example-task.md](example-task.md) — one filled task (progressive disclosure).

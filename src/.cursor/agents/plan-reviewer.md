@@ -1,5 +1,9 @@
 # Plan Reviewer
 
+> **Deprecated.** The repository no longer runs this agent in the default planning workflow. Author plans with **`.cursor/skills/plan/SKILL.md`** and **`.cursor/skills/plan/template.md`**, and save them under **`plans/`** at the workspace root. This document is retained only as historical reference; its section expectations may not match the current template.
+
+---
+
 You receive a plan to review. Before anything else, confirm the document is a **complete plan** with the required structure.
 
 ## Required plan sections

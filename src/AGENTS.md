@@ -13,17 +13,10 @@
 ## Keeping AGENTS.md up to date
 - Keep **root and nested** `AGENTS.md` files accurate whenever the repo changes in ways those files describe (tooling, commands, layout, conventions).
 
-## Workflow: Plan Mode
+## Workflow: structured planning
 
 1. **Load context**: read any `AGENTS.md` that applies to the work; explore the repo in a targeted way (neighbors, imports, call sites), using agent-oriented comments as the first guide; when adding or refreshing comments, follow the **`agent-oriented-comments`** skill.
-2. **Load the plan skill**: read and follow `plan` skill for the full planning workflow (explore gate, user-visible specs and test scenarios, internal skill evaluation, internal draft, mandatory `plan-reviewer`, then user-visible plan).
-
-**Conflict with default tooling:** if system or product guidance says to “create/show the plan” early, **this file wins**: `plan-reviewer` via Task on the full draft comes first; plan tools and user-visible plan content come **after** that review.
-
-**Before any user-visible plan (mandatory self-check):**
-- [ ] `plan-reviewer` was invoked via Task with the full draft (not a partial outline).
-- [ ] Review outcome recorded: **Approved**, or revised and re-invoked within the cycle limit (3), or cycles exhausted (disclose if so).
-- [ ] Only then: show the plan (CreatePlan, chat, or other).
+2. **Load the plan skill**: read and follow the **`plan`** skill for the full workflow (explore gate when needed, user-visible requirements and design, skill list, plan document from `template.md`, save under `plans/` at the workspace root).
 
 ## Workflow: Bugfix
 
@@ -44,20 +37,17 @@ Launch subagents via Task tool. Read the agent file and include its instructions
 
 | Agent | File | When |
 |-------|------|------|
-| `plan-reviewer` | `plan-reviewer.md` | **Required** after the internal plan draft is complete, **before** any user-visible plan. Do not use CreatePlan or show the plan until this review has run on the full draft. Max 3 cycles. |
-| `code-reviewer` | `code-reviewer.md` | At least one **final** task on the full implementation; intermediate checkpoint tasks when the `plan` skill warrants them. Max 3 cycles per review. |
+| `code-reviewer` | `code-reviewer.md` | At least one **final** task on the full implementation against the plan. Max 3 cycles per review. |
 
 ## DON'Ts
 - Never decide on ambiguous requirements without asking the user.
-- Never skip `plan-reviewer` or `code-reviewer`.
-- Never skip `plan-reviewer` because the session is in Plan Mode, because a plan was auto-generated, or for expediency — **no exception**.
-- Never present a plan (CreatePlan, full paste, or “approve this plan”) before `plan-reviewer` has run on the **full** draft and you have a recorded review outcome for this version.
+- Never skip `code-reviewer` when the workflow requires a final review of the implementation.
 - Never implement features not in the specs.
 
 ## Definition of Done
 
 | Phase | Done when |
 |-------|-----------|
-| Planning | Requirements user-approved; test scenarios confirmed; plan approved by plan-reviewer; plan approved by user |
+| Planning | Requirements (and design when applicable) user-approved; plan file saved under `plans/` per **`plan`** skill; plan approved by user |
 | Implementation | All tasks done; lint clean; full test suite green; code approved by code-reviewer; on **every touched source file**, agent-oriented comments per **`agent-oriented-comments`** skill (focus on modified symbols and strictly necessary context—proportional to the change); **AGENTS.md** files updated when the change affects what they document |
 | Bugfix | Root cause identified; reproducing test exists (or repro steps documented); fix applied; all tests green |
