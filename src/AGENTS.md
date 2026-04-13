@@ -6,17 +6,16 @@
 - Be critical. Challenge the user's assumptions when you see problems.
 
 ## Agent-oriented comments (code)
-- In files you touch: add or refresh **concise** comments that speed exploration and edits for the next agent.
-- Cover: purpose of types / methods / functions; non-obvious behavior (contracts, side effects, errors); links to other parts (callers, callees, important deps).
-- Remove redundant or wrong comments; do not restate obvious names.
-- Match the file’s language and comment style.
+- During **exploration**, use existing agent-oriented comments as your first guide to the code.
+- When you change behavior, **keep those comments accurate** (add, update, or remove as needed).
+- For **how** to write them, read and follow the **`agent-oriented-comments`** skill.
 
 ## Keeping AGENTS.md up to date
 - Keep **root and nested** `AGENTS.md` files accurate whenever the repo changes in ways those files describe (tooling, commands, layout, conventions).
 
 ## Workflow: Plan Mode
 
-1. **Load context**: read any `AGENTS.md` that applies to the work; explore the repo in a targeted way (neighbors, imports, call sites), using agent-oriented comments as the first guide.
+1. **Load context**: read any `AGENTS.md` that applies to the work; explore the repo in a targeted way (neighbors, imports, call sites), using agent-oriented comments as the first guide; when adding or refreshing comments, follow the **`agent-oriented-comments`** skill.
 2. **Load the plan skill**: read and follow `plan` skill for the full planning workflow (explore gate, user-visible specs and test scenarios, internal skill evaluation, internal draft, mandatory `plan-reviewer`, then user-visible plan).
 
 **Conflict with default tooling:** if system or product guidance says to “create/show the plan” early, **this file wins**: `plan-reviewer` via Task on the full draft comes first; plan tools and user-visible plan content come **after** that review.
@@ -60,5 +59,5 @@ Launch subagents via Task tool. Read the agent file and include its instructions
 | Phase | Done when |
 |-------|-----------|
 | Planning | Requirements user-approved; test scenarios confirmed; plan approved by plan-reviewer; plan approved by user |
-| Implementation | All tasks done; lint clean; full test suite green; code approved by code-reviewer; agent-oriented comments where applicable; **AGENTS.md** files updated when the change affects what they document |
+| Implementation | All tasks done; lint clean; full test suite green; code approved by code-reviewer; agent-oriented comments per **`agent-oriented-comments`** skill where applicable; **AGENTS.md** files updated when the change affects what they document |
 | Bugfix | Root cause identified; reproducing test exists (or repro steps documented); fix applied; all tests green |
