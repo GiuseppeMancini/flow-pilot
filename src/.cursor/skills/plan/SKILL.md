@@ -38,6 +38,8 @@ After the user approves specs and scenarios, decide which skills to use during i
 
 For any plan whose tasks use the **Simplify / refactor** step on real code, include **`simplify-code`**: add `simplify-code` to **Skills** and instruct implementers to **read and follow it at step 4** (after tests are green, before the final test run).
 
+For any plan that **creates or modifies** application source, include **`agent-oriented-comments`** in **Skills** and expect implementers to apply it on **all touched source files** (comments on edited existing code as well as new code), per that skill.
+
 ## Internal draft (not user-visible yet)
 
 Use **[template.md](template.md)** as the structural skeleton for the draft (required sections, task shape, **Per-file instructions** layout). For a concrete task including explicit per-file blocks, read **[example-task.md](example-task.md)** when drafting tasks.

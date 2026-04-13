@@ -7,7 +7,7 @@
 
 ## Agent-oriented comments (code)
 - During **exploration**, use existing agent-oriented comments as your first guide to the code.
-- When you change behavior, **keep those comments accurate** (add, update, or remove as needed).
+- For **every source file you modify**, add, improve, or remove comments per the **`agent-oriented-comments`** skill—**including code that already existed** before your edit, not only new lines or new symbols. When behavior changes, update comments in the **same** edit.
 - For **how** to write them, read and follow the **`agent-oriented-comments`** skill.
 
 ## Keeping AGENTS.md up to date
@@ -59,5 +59,5 @@ Launch subagents via Task tool. Read the agent file and include its instructions
 | Phase | Done when |
 |-------|-----------|
 | Planning | Requirements user-approved; test scenarios confirmed; plan approved by plan-reviewer; plan approved by user |
-| Implementation | All tasks done; lint clean; full test suite green; code approved by code-reviewer; agent-oriented comments per **`agent-oriented-comments`** skill where applicable; **AGENTS.md** files updated when the change affects what they document |
+| Implementation | All tasks done; lint clean; full test suite green; code approved by code-reviewer; on **every touched source file**, agent-oriented comments per **`agent-oriented-comments`** skill (focus on modified symbols and strictly necessary context—proportional to the change); **AGENTS.md** files updated when the change affects what they document |
 | Bugfix | Root cause identified; reproducing test exists (or repro steps documented); fix applied; all tests green |

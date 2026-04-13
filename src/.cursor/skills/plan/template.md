@@ -10,7 +10,7 @@ Copy and fill for the **internal draft** (before `plan-reviewer`). Replace place
 
 ## Skills
 
-- `agent-oriented-comments` — use for adding or updating AI-friendly code comments.
+- `agent-oriented-comments` — on **every** created or modified source file: add or refresh AI-friendly comments for **touched symbols and closely related context**, not only brand-new code.
 - `simplify-code` — when tasks include **Simplify / refactor**
 - `skill-name` — why it applies for implementation
 - …
